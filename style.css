@@ -118,7 +118,8 @@ ul {
 /* --- Hero Section --- */
 .hero {
     height: 90vh;
-    background: url('images/bella luna/exterior/1_General_view_BALI_4_2_e18099bf9a.avif') no-repeat center center/cover;
+    /* UPDATED PATH: now pointing to images/yacht/... */
+    background: url('images/yacht/exterior/1_General_view_BALI_4_2_e18099bf9a.avif') no-repeat center center/cover;
     position: relative;
     display: flex;
     justify-content: center;
