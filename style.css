@@ -118,8 +118,8 @@ ul {
 /* --- Hero Section --- */
 .hero {
     height: 90vh;
-    /* UPDATED PATH: now pointing to images/yacht/... */
-    background: url('images/yacht/exterior/1_General_view_BALI_4_2_e18099bf9a.avif') no-repeat center center/cover;
+    /* Wide Landscape Image */
+    background: url('images/yacht/exterior/6_Front_deck_of_the_boat_with_upholstery_c2d2c896f3.avif') no-repeat center center/cover;
     position: relative;
     display: flex;
     justify-content: center;
@@ -132,7 +132,7 @@ ul {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 51, 102, 0.4); /* Blue Tint */
+    background: rgba(0, 51, 102, 0.3);
 }
 
 .hero-content {
@@ -146,11 +146,13 @@ ul {
     font-size: 3.5rem;
     color: white;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero p {
     font-size: 1.2rem;
     margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 /* --- Two Column Layout (About) --- */
@@ -227,6 +229,49 @@ ul {
 .gallery-grid img:hover {
     transform: scale(1.02);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* --- FAQ Section --- */
+.faq-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: white;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+
+.faq-item summary {
+    font-weight: 600;
+    color: var(--primary-color);
+    list-style: none; /* Hides default triangle */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Custom indicator for FAQ */
+.faq-item summary::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.faq-item[open] summary::after {
+    content: '-';
+}
+
+.faq-item p {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    color: #555;
+    font-size: 0.95rem;
 }
 
 /* --- Contact Section --- */
