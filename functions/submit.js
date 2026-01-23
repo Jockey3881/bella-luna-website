@@ -4,10 +4,9 @@ export async function onRequestPost(context) {
     const formData = await context.request.formData();
     const name = formData.get("name");
     const email = formData.get("email");
-    const date = formData.get("date");
     const message = formData.get("message");
 
-    // 2. Validate inputs
+    // 2. Validate inputs (Removed Date)
     if (!name || !email || !message) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
     }
@@ -25,7 +24,6 @@ export async function onRequestPost(context) {
         <h3>New Charter Request</h3>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Preferred Date:</strong> ${date}</p>
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `
@@ -37,7 +35,6 @@ export async function onRequestPost(context) {
       headers: {
         "accept": "application/json",
         "content-type": "application/json",
-        // IMPORTANT: The header for Brevo API keys (starting with xkeysib-) is 'api-key'
         "api-key": context.env.BREVO_API_KEY 
       },
       body: JSON.stringify(emailData)
@@ -45,7 +42,7 @@ export async function onRequestPost(context) {
 
     if (!response.ok) {
         const errorText = await response.text();
-        // Return the specific error from Brevo so we can see it in the browser console/screen
+        // Return the specific error from Brevo so we can see it in the browser
         return new Response(JSON.stringify({ error: "Failed to send email", details: errorText }), { status: 500 });
     }
 
