@@ -15,7 +15,7 @@ export async function onRequestPost(context) {
     // 3. Prepare the email data for Brevo API
     const emailData = {
       sender: { name: "Bella Luna Website", email: "no-reply@bellaluna-charters.com" },
-      to: [{ email: "bjones5481@icloud.com", name: "Bella Luna Team" }], // Your email is set here
+      to: [{ email: "garyhouck@gmail.com", name: "Bella Luna Team" }], // Your email is set here
       subject: `New Yacht Charter Inquiry from ${name}`,
       htmlContent: `
         <h3>New Charter Request</h3>
