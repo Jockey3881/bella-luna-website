@@ -14,8 +14,12 @@ export async function onRequestPost(context) {
 
     // 3. Prepare the email data for Brevo API
     const emailData = {
+      // SENDER: Must be your verified email address from Brevo
       sender: { name: "Bella Luna Website", email: "dev@gigavend.com" },
-      to: [{ email: "garyhouck@gmail.com", name: "Bella Luna Team" }], // Your email is set here
+      
+      // TO: The email address where you want to receive inquiries
+      to: [{ email: "garyhouck@gmail.com", name: "Bella Luna Team" }], 
+      
       subject: `New Yacht Charter Inquiry from ${name}`,
       htmlContent: `
         <h3>New Charter Request</h3>
@@ -33,13 +37,14 @@ export async function onRequestPost(context) {
       headers: {
         "accept": "application/json",
         "content-type": "application/json",
-        "api-key": context.env.BREVO_API_KEY // This grabs the key from Cloudflare settings
+        "api-key": context.env.BREVO_API_KEY 
       },
       body: JSON.stringify(emailData)
     });
 
     if (!response.ok) {
         const errorText = await response.text();
+        // Return the specific error from Brevo so we can see it in the browser
         return new Response(JSON.stringify({ error: "Failed to send email", details: errorText }), { status: 500 });
     }
 

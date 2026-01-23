@@ -231,13 +231,15 @@
                     status.style.color = "#a3ffb6"; // Light green for visibility on blue bg
                     btn.style.display = "none";
                 } else {
-                    status.innerHTML = "Error: " + (json.error || "Something went wrong.");
+                    // Display specific error details
+                    const detail = json.details || json.error || "Something went wrong.";
+                    status.innerHTML = "Error: " + detail;
                     status.style.color = "#ff8a8a"; // Light red
                     btn.disabled = false;
                     btn.innerText = "Send Inquiry";
                 }
             } catch (error) {
-                status.innerHTML = "Network error. Please try again.";
+                status.innerHTML = "Network error: " + error.message;
                 status.style.color = "#ff8a8a";
                 btn.disabled = false;
                 btn.innerText = "Send Inquiry";
