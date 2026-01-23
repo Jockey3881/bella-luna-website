@@ -102,11 +102,29 @@
             </div>
             <div class="gallery-grid">
                 <img src="images/yacht/exterior/1_General_view_BALI_4_2_e18099bf9a.avif" alt="Exterior View">
-                <img src="images/yacht/interior/1_Square_table_with_open_tilting_door_d95de2b041.avif" alt="Saloon Open">
-                <img src="images/yacht/interior/2_Kitchen_with_sink_oven_and_hob_343187b963.avif" alt="Kitchen">
-                <img src="images/yacht/interior/7_Overview_owner_s_cabin_with_bathroom_corridor_and_double_bed_22be8342e6.avif" alt="Owner Cabin">
                 <img src="images/yacht/exterior/6_Front_deck_of_the_boat_with_upholstery_c2d2c896f3.avif" alt="Front Deck">
                 <img src="images/yacht/exterior/5_Flybridge_with_sea_view_82551b915f.avif" alt="Flybridge View">
+                <img src="images/yacht/exterior/3_Couple_on_the_flybridge_reading_a_book_c5bc48cbef.avif" alt="Relaxing on Flybridge">
+                <img src="images/yacht/exterior/2_Man_and_woman_in_sportswear_on_the_boat_4410a966d2.avif" alt="Guests on Deck">
+                <img src="images/yacht/exterior/4_Rear_bench_view_with_sea_view_3aee36971a.avif" alt="Rear Bench View">
+
+                <img src="images/yacht/interior/1_Square_table_with_open_tilting_door_d95de2b041.avif" alt="Saloon Open">
+                <img src="images/yacht/interior/2_Kitchen_with_sink_oven_and_hob_343187b963.avif" alt="Kitchen">
+                <img src="images/yacht/interior/3_kitchen_units_with_open_rear_door_b6b520091b.avif" alt="Kitchen Units">
+                <img src="images/yacht/interior/7_Overview_owner_s_cabin_with_bathroom_corridor_and_double_bed_22be8342e6.avif" alt="Owner Cabin Overview">
+                <img src="images/yacht/interior/4_Corridor_and_double_bed_owner_s_cabin_656552582f.avif" alt="Owner Cabin Corridor">
+                <img src="images/yacht/interior/5_Double_cabin_bed_14d873e017.avif" alt="Double Cabin Bed">
+                <img src="images/yacht/interior/8_Guest_cabin_double_bed_abf625b921.avif" alt="Guest Cabin">
+                <img src="images/yacht/interior/9_Guest_cabin_double_bed_yellow_d173ab8c8f.avif" alt="Guest Cabin Yellow">
+
+                <img src="images/yacht/exterior/IMG_3974.JPG" alt="Gallery Image 1">
+                <img src="images/yacht/exterior/IMG_3975.JPG" alt="Gallery Image 2">
+                <img src="images/yacht/exterior/IMG_3976.JPG" alt="Gallery Image 3">
+                <img src="images/yacht/exterior/IMG_3977.JPG" alt="Gallery Image 4">
+                <img src="images/yacht/exterior/IMG_3978.JPG" alt="Gallery Image 5">
+                <img src="images/yacht/exterior/IMG_3979.JPG" alt="Gallery Image 6">
+                <img src="images/yacht/exterior/d6b8afad-566b-492a-a252-0facdbead652.JPG" alt="Gallery Image 7">
+                <img src="images/yacht/exterior/f558f585-9200-4bbb-a6e6-0ca794c5eeaf.JPG" alt="Gallery Image 8">
             </div>
         </div>
     </section>
@@ -154,13 +172,15 @@
                         <li><i class="fas fa-map-marker-alt"></i> Road Town, Tortola, BVI</li>
                     </ul>
                 </div>
+                
                 <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="date" placeholder="Preferred Date">
-                        <textarea rows="5" placeholder="Message / Questions"></textarea>
-                        <button type="submit" class="btn-primary">Send Inquiry</button>
+                    <form id="booking-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="date" name="date" placeholder="Preferred Date">
+                        <textarea name="message" rows="5" placeholder="Message / Questions"></textarea>
+                        <button type="submit" class="btn-primary" id="my-form-button">Send Inquiry</button>
+                        <p id="my-form-status" style="margin-top: 10px; color: #c49a6c; font-weight: 600;"></p>
                     </form>
                 </div>
             </div>
@@ -174,12 +194,48 @@
     </footer>
 
     <script>
-        // Simple Mobile Menu Toggle
+        // Mobile Menu Logic
         const burger = document.querySelector('.burger');
         const nav = document.querySelector('.nav-links');
         burger.addEventListener('click', () => {
             nav.classList.toggle('nav-active');
         });
+
+        // Formspree AJAX Logic (Free Tier Friendly)
+        var form = document.getElementById("booking-form");
+        
+        async function handleSubmit(event) {
+            event.preventDefault(); // 1. Stop the redirect to Formspree page
+            var status = document.getElementById("my-form-status");
+            var btn = document.getElementById("my-form-button");
+            var data = new FormData(event.target);
+            
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // 2. Success: Clear form and show message
+                    form.reset();
+                    status.innerHTML = "Thanks! We have received your inquiry.";
+                    btn.style.display = "none"; // Hide the button so they don't click twice
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.innerHTML = "Oops! There was a problem submitting your form";
+                        }
+                    })
+                }
+            }).catch(error => {
+                status.innerHTML = "Oops! There was a problem submitting your form";
+            });
+        }
+        form.addEventListener("submit", handleSubmit);
     </script>
 </body>
 </html>
